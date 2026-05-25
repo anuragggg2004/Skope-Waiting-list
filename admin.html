@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skope Waitlist Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0f1a;
+            --bg-secondary: #131627;
+            --bg-tertiary: #1a1e35;
+            --accent-blue: #4f8ef7;
+            --text-primary: #f0f2ff;
+            --text-muted: rgba(240, 242, 255, 0.5);
+            --border-color: rgba(79, 142, 247, 0.15);
+            --success: #6bcb77;
+            --error: #ff6b6b;
+            --warning: #ffd93d;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(79, 142, 247, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 142, 247, 0.04) 1px, transparent 1px);
+            background-size: 52px 52px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-left h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header-left p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button, input[type="file"] {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #3d75d8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 0.5px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .btn-danger {
+            background-color: var(--error);
+        }
+
+        .btn-danger:hover {
+            background-color: #ff5252;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #5db369;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* Table */
+        .table-container {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: rgba(79, 142, 247, 0.1);
+            border-bottom: 0.5px solid var(--border-color);
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 0.5px solid var(--border-color);
+            font-size: 13px;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(79, 142, 247, 0.05);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .email-cell {
+            color: var(--accent-blue);
+            word-break: break-all;
+        }
+
+        .date-cell {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .btn-row {
+            cursor: pointer;
+            color: var(--accent-blue);
+            font-size: 12px;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            text-decoration: underline;
+        }
+
+        .btn-row:hover {
+            opacity: 0.8;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            margin-bottom: 24px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 90%;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            clear: both;
+        }
+
+        .detail-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 0.5px solid var(--border-color);
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+            min-width: 100px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            word-break: break-word;
+            flex: 1;
+        }
+
+        /* Search */
+        .search-box {
+            margin-bottom: 24px;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            background-color: var(--bg-tertiary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(79, 142, 247, 0.1);
+        }
+
+        .search-box input::placeholder {
+            color: rgba(240, 242, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            main {
+                padding: 20px 12px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            th, td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <div class="header-left">
+                <h1>Skope Waitlist Admin</h1>
+                <p>Manage and export your waitlist data</p>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-success" onclick="exportToExcel()">📥 Export to Excel</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📤 Import from Excel</button>
+                <input type="file" id="importFile" accept=".xlsx,.xls,.csv" style="display: none;" onchange="handleImport(event)">
+                <button class="btn btn-danger" onclick="clearData()">🗑️ Clear All</button>
+            </div>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="totalCount">0</span>
+                <span class="stat-label">Total Signups</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="pcmCount">0</span>
+                <span class="stat-label">PCM Students</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="pcbCount">0</span>
+                <span class="stat-label">PCB Students</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="commerceCount">0</span>
+                <span class="stat-label">Commerce Students</span>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by name or email..." onkeyup="filterTable()">
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Stream</th>
+                        <th>Joined Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+            <div class="empty-state" id="emptyState">
+                <div class="empty-state-icon">📭</div>
+                <p>No waitlist entries yet</p>
+                <small>Entries will appear here as students join</small>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2>Entry Details</h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+    <script>
+        // Waitlist Manager Class
+        class WaitlistManager {
+            constructor() {
+                this.storageKey = 'skope_waitlist_data';
+            }
+
+            getAll() {
+                const data = localStorage.getItem(this.storageKey);
+                return data ? JSON.parse(data) : [];
+            }
+
+            exportToExcel() {
+                const entries = this.getAll();
+                if (entries.length === 0) {
+                    alert('No waitlist data to export');
+                    return;
+                }
+
+                const worksheetData = [
+                    ['Name', 'Email', 'Stream', 'Confusion', 'Joined Date', 'Timestamp'],
+                    ...entries.map(entry => [
+                        entry.name,
+                        entry.email,
+                        entry.stream,
+                        entry.confusion || '',
+                        entry.joinedDate,
+                        entry.timestamp
+                    ])
+                ];
+
+                const workbook = XLSX.utils.book_new();
+                const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+
+                worksheet['!cols'] = [
+                    { wch: 20 },
+                    { wch: 25 },
+                    { wch: 15 },
+                    { wch: 30 },
+                    { wch: 15 },
+                    { wch: 25 }
+                ];
+
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Waitlist');
+                XLSX.writeFile(workbook, `Skope-Waitlist-${new Date().toISOString().split('T')[0]}.xlsx`);
+            }
+
+            importFromExcel(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const data = new Uint8Array(e.target.result);
+                            const workbook = XLSX.read(data, { type: 'array' });
+                            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                            const rows = XLSX.utils.sheet_to_json(worksheet);
+
+                            const entries = this.getAll();
+                            let importCount = 0;
+
+                            rows.forEach(row => {
+                                const entry = {
+                                    id: Date.now() + Math.random(),
+                                    name: row['Name'] || row['name'] || '',
+                                    email: row['Email'] || row['email'] || '',
+                                    stream: row['Stream'] || row['stream'] || '',
+                                    confusion: row['Confusion'] || row['confusion'] || '',
+                                    timestamp: row['Timestamp'] || row['timestamp'] || new Date().toISOString(),
+                                    joinedDate: row['Joined Date'] || row['joinedDate'] || new Date().toLocaleDateString('en-IN')
+                                };
+                                if (entry.email) {
+                                    entries.push(entry);
+                                    importCount++;
+                                }
+                            });
+
+                            localStorage.setItem(this.storageKey, JSON.stringify(entries));
+                            resolve(importCount);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
+                    reader.readAsArrayBuffer(file);
+                });
+            }
+
+            clearAll() {
+                localStorage.removeItem(this.storageKey);
+            }
+        }
+
+        const manager = new WaitlistManager();
+
+        // Load and display data
+        function loadData() {
+            const entries = manager.getAll();
+            const tableBody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+
+            if (entries.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.style.display = 'block';
+                updateStats([]);
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            tableBody.innerHTML = entries.map(entry => `
+                <tr>
+                    <td>${entry.name}</td>
+                    <td class="email-cell">${entry.email}</td>
+                    <td>${entry.stream}</td>
+                    <td class="date-cell">${entry.joinedDate}</td>
+                    <td><button class="btn-row" onclick="showDetails('${entry.id}')">View Details</button></td>
+                </tr>
+            `).join('');
+
+            updateStats(entries);
+        }
+
+        // Update statistics
+        function updateStats(entries) {
+            document.getElementById('totalCount').textContent = entries.length;
+
+            const streams = {
+                'PCM': entries.filter(e => e.stream.toUpperCase().includes('PCM')).length,
+                'PCB': entries.filter(e => e.stream.toUpperCase().includes('PCB')).length,
+                'Commerce': entries.filter(e => e.stream.toUpperCase().includes('COMMERCE')).length
+            };
+
+            document.getElementById('pcmCount').textContent = streams['PCM'];
+            document.getElementById('pcbCount').textContent = streams['PCB'];
+            document.getElementById('commerceCount').textContent = streams['Commerce'];
+        }
+
+        // Show details modal
+        function showDetails(entryId) {
+            const entries = manager.getAll();
+            const entry = entries.find(e => e.id === parseFloat(entryId));
+
+            if (!entry) return;
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="detail-row">
+                    <div class="detail-label">Name:</div>
+                    <div class="detail-value">${entry.name}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Email:</div>
+                    <div class="detail-value">${entry.email}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Stream:</div>
+                    <div class="detail-value">${entry.stream}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Confusion:</div>
+                    <div class="detail-value">${entry.confusion || 'Not provided'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Joined:</div>
+                    <div class="detail-value">${entry.joinedDate}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Time:</div>
+                    <div class="detail-value">${new Date(entry.timestamp).toLocaleString('en-IN')}</div>
+                </div>
+            `;
+
+            document.getElementById('detailsModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('detailsModal').classList.remove('show');
+        }
+
+        // Filter table
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const entries = manager.getAll().filter(e =>
+                e.name.toLowerCase().includes(searchTerm) ||
+                e.email.toLowerCase().includes(searchTerm)
+            );
+
+            const tableBody = document.getElementById('tableBody');
+            if (entries.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">No results found</td></tr>';
+                return;
+            }
+
+            tableBody.innerHTML = entries.map(entry => `
+                <tr>
+                    <td>${entry.name}</td>
+                    <td class="email-cell">${entry.email}</td>
+                    <td>${entry.stream}</td>
+                    <td class="date-cell">${entry.joinedDate}</td>
+                    <td><button class="btn-row" onclick="showDetails('${entry.id}')">View Details</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Export to Excel
+        function exportToExcel() {
+            manager.exportToExcel();
+        }
+
+        // Import from Excel
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            manager.importFromExcel(file).then(count => {
+                alert(`Successfully imported ${count} entries!`);
+                loadData();
+                document.getElementById('importFile').value = '';
+            }).catch(error => {
+                alert('Error importing file: ' + error.message);
+            });
+        }
+
+        // Clear all data
+        function clearData() {
+            if (confirm('Are you sure you want to delete all waitlist entries? This cannot be undone.')) {
+                manager.clearAll();
+                loadData();
+                alert('All data cleared.');
+            }
+        }
+
+        // Close modal on click outside
+        document.getElementById('detailsModal').addEventListener('click', (e) => {
+            if (e.target.id === 'detailsModal') {
+                closeModal();
+            }
+        });
+
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skope - Find Your Scope in Life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0f1a;
+            --bg-secondary: #131627;
+            --bg-tertiary: #1a1e35;
+            --accent-blue: #4f8ef7;
+            --text-primary: #f0f2ff;
+            --text-muted: rgba(240, 242, 255, 0.5);
+            --border-color: rgba(79, 142, 247, 0.15);
+            --success: #6bcb77;
+            --error: #ff6b6b;
+            --warning: #ffd93d;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(79, 142, 247, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 142, 247, 0.04) 1px, transparent 1px);
+            background-size: 52px 52px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -200px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(79, 142, 247, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body {
+            position: relative;
+        }
+
+        body::before {
+            z-index: 1;
+        }
+
+        .glow-orb-bottom {
+            position: fixed;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(79, 142, 247, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 0.5px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            background-color: rgba(13, 15, 26, 0.7);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-family: 'Sora', sans-serif;
+            font-size: 21px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .logo-text-o {
+            color: var(--accent-blue);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background-color: #3d75d8;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 90px 40px 80px;
+            text-align: center;
+            animation: fadeUp 0.5s ease;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(79, 142, 247, 0.1);
+            border: 0.5px solid rgba(79, 142, 247, 0.2);
+            border-radius: 20px;
+            padding: 5px 16px;
+            font-size: 12px;
+            color: var(--accent-blue);
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 58px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin: 0;
+            word-spacing: 0.1em;
+        }
+
+        .h1-muted {
+            color: rgba(240, 242, 255, 0.45);
+        }
+
+        .h1-blue {
+            color: var(--accent-blue);
+        }
+
+        h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.8px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 520px;
+            line-height: 1.75;
+            margin: 24px auto 0;
+        }
+
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3d75d8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 0.5px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .hero-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        .social-proof {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            border-top: 0.5px solid var(--border-color);
+            margin-top: 48px;
+            padding-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .proof-item {
+            text-align: center;
+        }
+
+        .proof-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            display: block;
+        }
+
+        .proof-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Sections */
+        section {
+            position: relative;
+            padding: 80px 40px;
+        }
+
+        .section-container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .section-tag {
+            color: var(--accent-blue);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        section h2 {
+            margin-bottom: 48px;
+        }
+
+        /* Problem Section */
+        #problem {
+            background-color: rgba(13, 15, 26, 0.5);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .card-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .problem-statement {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            font-style: italic;
+            max-width: 600px;
+            margin: 40px auto 0;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 20px;
+            text-align: left;
+            color: var(--text-primary);
+        }
+
+        /* What is Skope Section */
+        #what-is-skope {
+            background-color: rgba(13, 15, 26, 0.7);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .skope-text p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .pill {
+            border: 0.5px solid var(--border-color);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .preview-card {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .preview-label {
+            color: var(--accent-blue);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .profile-box {
+            background-color: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .path-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .path-dot {
+            width: 4px;
+            height: 4px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .path-text {
+            color: var(--text-primary);
+        }
+
+        .path-reason {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .college-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            align-items: center;
+        }
+
+        .college-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 10px;
+        }
+
+        .badge-safe {
+            background-color: rgba(107, 203, 119, 0.2);
+            color: var(--success);
+        }
+
+        .badge-target {
+            background-color: rgba(255, 217, 61, 0.2);
+            color: var(--warning);
+        }
+
+        .badge-reach {
+            background-color: rgba(255, 107, 107, 0.2);
+            color: var(--error);
+        }
+
+        .college-name {
+            color: var(--text-primary);
+        }
+
+        .preview-more {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 12px;
+        }
+
+        /* How It Works */
+        #how-it-works {
+            background-color: rgba(13, 15, 26, 0.5);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .step {
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            opacity: 0.2;
+            margin-bottom: 12px;
+        }
+
+        .step-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* What You Get */
+        #what-you-get {
+            background-color: rgba(13, 15, 26, 0.7);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        /* Who is This For */
+        #who-is-for {
+            background-color: rgba(13, 15, 26, 0.5);
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+
+        .audience-note {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Trust Section */
+        #trust {
+            background-color: rgba(13, 15, 26, 0.7);
+        }
+
+        .trust-rows {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .trust-row {
+            display: flex;
+            gap: 16px;
+            padding: 24px 0;
+            border-bottom: 0.5px solid var(--border-color);
+        }
+
+        .trust-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .trust-content h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .trust-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* Final CTA */
+        #final-cta {
+            padding: 80px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-box {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 20px;
+            padding: 52px 40px;
+            max-width: 640px;
+            text-align: center;
+        }
+
+        .cta-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .cta-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 420px;
+            margin: 12px auto 24px;
+        }
+
+        .cta-box .btn {
+            margin: 0 auto;
+        }
+
+        .cta-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 0.5px solid var(--border-color);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-left {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .footer-center {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            width: 100%;
+            font-size: 11px;
+            color: rgba(240, 242, 255, 0.2);
+            text-align: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 0.5px solid var(--border-color);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-animate {
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            .nav-right {
+                gap: 12px;
+            }
+
+            .nav-link {
+                display: none;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .hero {
+                padding: 60px 20px 50px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .social-proof {
+                gap: 20px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-right {
+                justify-content: center;
+            }
+
+            .cta-box {
+                padding: 32px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+                letter-spacing: -1px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .proof-number {
+                font-size: 20px;
+            }
+
+            .problem-statement {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb-bottom"></div>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="8"></circle>
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M16.5 16.5L20 20"></path>
+                </svg>
+                <span>Sk<span class="logo-text-o">o</span>pe</span>
+            </a>
+            <div class="nav-right">
+                <a href="#how-it-works" class="nav-link">How it works</a>
+                <a href="waitlist.html" class="nav-btn">Join Waitlist →</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Now accepting early access · India
+            </div>
+
+            <h1>
+                <span class="h1-muted">Iske aage</span><br>
+                <span class="h1-blue">scope hai kya?</span><br>
+                <span class="h1-muted">Find out in</span><br>
+                <span class="h1-muted">4 minutes.</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Every year, 1.5 crore Indian students finish Class 12 with the same question and no real answer. Skope is the AI counsellor that finally gives them one — specific to who they are, not generic advice.
+            </p>
+
+            <div class="hero-cta">
+                <a href="waitlist.html" class="btn btn-primary">Get Early Access →</a>
+                <a href="#how-it-works" class="btn btn-secondary">See how it works</a>
+            </div>
+
+            <p class="hero-note">Free to try. No signup needed to explore.</p>
+
+            <div class="social-proof">
+                <div class="proof-item">
+                    <span class="proof-number">1.5 Cr+</span>
+                    <span class="proof-label">students face this every year</span>
+                </div>
+                <div class="proof-item">
+                    <span class="proof-number">800+</span>
+                    <span class="proof-label">Indian colleges in our database</span>
+                </div>
+                <div class="proof-item">
+                    <span class="proof-number">4 min</span>
+                    <span class="proof-label">to get your full PathReport</span>
+                </div>
+                <div class="proof-item">
+                    <span class="proof-number">₹0</span>
+                    <span class="proof-label">to start</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section id="problem">
+            <div class="section-container">
+                <div class="section-tag">The Problem</div>
+                <h2>Most Class 12 students choose their future with the wrong information.</h2>
+
+                <div class="problem-grid">
+                    <div class="card">
+                        <div class="card-icon">⚠️</div>
+                        <div class="card-title">Generic advice everywhere</div>
+                        <div class="card-text">Parents say engineering. Relatives say CA. YouTube says do what you love. Nobody looks at who you actually are.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">💸</div>
+                        <div class="card-title">₹50,000 counsellors or nothing</div>
+                        <div class="card-text">Quality guidance costs more than most families earn in a month. Everyone else gets the same 5 college names from an overworked school counsellor.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">⏰</div>
+                        <div class="card-title">Decisions made in panic</div>
+                        <div class="card-text">Form deadlines, parent pressure, peer pressure. Most students fill forms without knowing what they're signing up for. Regret follows.</div>
+                    </div>
+                </div>
+
+                <div class="problem-statement">
+                    Most students don't choose the wrong career. They choose it with the wrong information. That's what Skope is built to fix.
+                </div>
+            </div>
+        </section>
+
+        <!-- What is Skope Section -->
+        <section id="what-is-skope">
+            <div class="section-container">
+                <div class="section-tag">What is Skope</div>
+                <h2>Your personal AI counsellor. Built for India.</h2>
+
+                <div class="two-column">
+                    <div class="skope-text">
+                        <p>Skope is not a college list. It's not a quiz that puts you in a box. It's an AI that has a real conversation with you — asks questions specific to your answers, understands your actual situation, and builds a PathReport that's genuinely yours.</p>
+
+                        <p>It knows every college in India — IITs, NITs, NLUs, central universities, private colleges, design institutes, and everything in between. It knows every entrance exam. And it maps all of that to who you are — not who it assumes you should be.</p>
+
+                        <div class="feature-pills">
+                            <span class="pill">Adaptive questions</span>
+                            <span class="pill">800+ real Indian colleges</span>
+                            <span class="pill">Entrance exam mapping</span>
+                            <span class="pill">30-day action plan</span>
+                            <span class="pill">AI counsellor chat</span>
+                            <span class="pill">Completely free to start</span>
+                        </div>
+                    </div>
+
+                    <div class="preview-card">
+                        <div class="preview-label">Your PathReport</div>
+
+                        <div class="profile-box">
+                            Based on your answers, you're someone who values both creativity and precision, thinks systematically about problems...
+                        </div>
+
+                        <div style="margin-bottom: 16px; border-bottom: 0.5px solid var(--border-color); padding-bottom: 12px;">
+                            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Careers for you</div>
+                            <div class="path-item">
+                                <div class="path-dot"></div>
+                                <div>
+                                    <div class="path-text">Product Design</div>
+                                    <div class="path-reason">Your visual thinking + tech interest</div>
+                                </div>
+                            </div>
+                            <div class="path-item">
+                                <div class="path-dot"></div>
+                                <div>
+                                    <div class="path-text">Data Science</div>
+                                    <div class="path-reason">Your pattern recognition skills</div>
+                                </div>
+                            </div>
+                            <div class="path-item">
+                                <div class="path-dot"></div>
+                                <div>
+                                    <div class="path-text">UX Research</div>
+                                    <div class="path-reason">Your curiosity about human behavior</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 12px; border-bottom: 0.5px solid var(--border-color); padding-bottom: 12px;">
+                            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Colleges for you</div>
+                            <div class="college-row">
+                                <span class="college-badge badge-safe">Safe</span>
+                                <span class="college-name">NIT Trichy — B.Tech Design</span>
+                            </div>
+                            <div class="college-row">
+                                <span class="college-badge badge-target">Target</span>
+                                <span class="college-name">IIT Bombay — B.Des</span>
+                            </div>
+                            <div class="college-row">
+                                <span class="college-badge badge-reach">Reach</span>
+                                <span class="college-name">NID Ahmedabad — B.Des</span>
+                            </div>
+                        </div>
+
+                        <div class="preview-more">+ 5 more colleges · 2 emerging roles · 30-day plan</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works">
+            <div class="section-container">
+                <div class="section-tag">How It Works</div>
+                <h2>Four steps to clarity.</h2>
+
+                <div class="steps-grid">
+                    <div class="step">
+                        <div class="step-number">01</div>
+                        <div class="step-title">Tell us about you</div>
+                        <div class="step-text">Answer 3 open questions — no dropdowns, no boxes to tick. Write freely about your stream, what you love outside school, and what's in your head about the future. There are no wrong answers.</div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">02</div>
+                        <div class="step-title">Skope listens and adapts</div>
+                        <div class="step-text">Based on exactly what you wrote, Skope generates 5 follow-up questions specific to you. Not the same questions everyone gets — questions that dig into your specific interests, tensions, and confusion. Like a counsellor who actually read your answers.</div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">03</div>
+                        <div class="step-title">Your PathReport arrives</div>
+                        <div class="step-text">In about 15 seconds, your full PathReport is ready. It covers: 3 career paths that fit your profile with honest reality checks, 8 real Indian colleges ranked as Reach/Target/Safe, entrance exams you need to focus on, 2 emerging roles you've probably never heard of, and 5 specific actions to take in the next 30 days.</div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">04</div>
+                        <div class="step-title">Keep talking to your counsellor</div>
+                        <div class="step-text">After your report, an AI counsellor stays on — already loaded with everything you shared. Ask follow-ups. Add information you forgot. Ask what-ifs. Watch your recommendations update in real time based on what you tell it.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What You Get Section -->
+        <section id="what-you-get">
+            <div class="section-container">
+                <div class="section-tag">What's In Your PathReport</div>
+                <h2>Everything you need. Nothing you don't.</h2>
+
+                <div class="features-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">Career Paths That Fit You</div>
+                        <div class="card-text">3 careers matched to your interests, skills, and situation. Each one comes with why it fits you specifically, the entrance exams you need, real earning ranges in India, and an honest reality check.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">🏢</div>
+                        <div class="card-title">8 Real Indian Colleges</div>
+                        <div class="card-text">Every college is real and exists. Ranked as Reach, Target, or Safe based on your actual marks and profile — not just a generic top colleges list.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">🧭</div>
+                        <div class="card-title">Entrance Exam Roadmap</div>
+                        <div class="card-text">Exactly which exams you need for each path — JEE, NEET, CLAT, CUET, UCEED, NID DAT, NIFT, and more. No guessing which exam leads where.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">💡</div>
+                        <div class="card-title">2 Emerging Roles</div>
+                        <div class="card-text">Careers most students have never heard of but should know — specific to your profile, with real job descriptions and why they're relevant to you.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">📅</div>
+                        <div class="card-title">30-Day Action Plan</div>
+                        <div class="card-text">5 specific things to do in the next 30 days. Not 'research your options' — actual tasks, actual deadlines, actual next steps.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">💬</div>
+                        <div class="card-title">AI Counsellor Chat</div>
+                        <div class="card-text">Ask anything after your report. Your counsellor already knows you — no repeating yourself. Add new info and watch your recommendations update.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who is This For Section -->
+        <section id="who-is-for">
+            <div class="section-container">
+                <div class="section-tag">Who Skope Is For</div>
+                <h2>Built for the students nobody else built for.</h2>
+
+                <div class="audience-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">The confused one</div>
+                        <div class="card-text">You have no idea what you want to do and everyone around you seems to have it figured out. You need someone to help you discover yourself before choosing a path.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-title">The pressured one</div>
+                        <div class="card-text">You know what you want but your parents want something different. You need real data and real arguments to have that conversation — not just gut feeling.</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">🔍</div>
+                        <div class="card-title">The researcher</div>
+                        <div class="card-text">You've been Googling for months, have 47 browser tabs open, and still can't decide. You need someone to cut through the noise and tell you what actually matters for your specific profile.</div>
+                    </div>
+                </div>
+
+                <p class="audience-note">
+                    Skope works for PCM, PCB, Commerce, and Arts students. Any stream, any city, any budget.
+                </p>
+            </div>
+        </section>
+
+        <!-- Trust Section -->
+        <section id="trust">
+            <div class="section-container">
+                <div class="section-tag">Why Trust Skope</div>
+
+                <div class="trust-rows">
+                    <div class="trust-row">
+                        <div class="trust-icon">✓</div>
+                        <div class="trust-content">
+                            <h3>Real colleges only</h3>
+                            <p>Every college in your PathReport is a real institution with a real admission process. We never invent colleges or pad lists with places that don't fit you.</p>
+                        </div>
+                    </div>
+
+                    <div class="trust-row">
+                        <div class="trust-icon">✓</div>
+                        <div class="trust-content">
+                            <h3>No upselling, ever</h3>
+                            <p>Skope doesn't earn commissions from colleges. We have no reason to recommend a college except that it fits your profile.</p>
+                        </div>
+                    </div>
+
+                    <div class="trust-row">
+                        <div class="trust-icon">✓</div>
+                        <div class="trust-content">
+                            <h3>Built by a student, for students</h3>
+                            <p>Skope was built by someone who went through exactly this confusion. The wrong college, the wrong guidance, the regret. This product exists because that shouldn't keep happening.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="final-cta">
+            <div class="cta-box">
+                <h2>Ready to find your scope?</h2>
+                <p>Join students who are getting early access to Skope before public launch. Takes 2 minutes. No spam. Just your access link when we're ready.</p>
+                <a href="waitlist.html" class="btn btn-primary">Join the Waitlist →</a>
+                <p class="cta-note">Free forever for students. No credit card. No catch.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-left">
+            <a href="#" style="text-decoration: none; color: var(--text-primary);">Skope</a>
+        </div>
+        <div class="footer-center">
+            Built for students who don't know what's next.
+        </div>
+        <div class="footer-right">
+            <a href="#" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">About</a>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Skope
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-up animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            if (section.id !== 'hero') {
+                section.classList.add('section-animate');
+                observer.observe(section);
+            }
+        });
+
+        // Smooth scroll handling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = target.offsetTop - headerHeight;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.borderBottomColor = 'rgba(79, 142, 247, 0.25)';
+            } else {
+                header.style.borderBottomColor = 'rgba(79, 142, 247, 0.15)';
+            }
+        });
+    </script>
+</body>
+</html>

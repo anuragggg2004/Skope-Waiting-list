@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Skope Waitlist - Find Your Scope in Life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0f1a;
+            --bg-secondary: #131627;
+            --bg-tertiary: #1a1e35;
+            --accent-blue: #4f8ef7;
+            --text-primary: #f0f2ff;
+            --text-muted: rgba(240, 242, 255, 0.5);
+            --border-color: rgba(79, 142, 247, 0.15);
+            --success: #6bcb77;
+            --error: #ff6b6b;
+            --warning: #ffd93d;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(79, 142, 247, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 142, 247, 0.04) 1px, transparent 1px);
+            background-size: 52px 52px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -200px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(79, 142, 247, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-orb-bottom {
+            position: fixed;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(79, 142, 247, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navbar */
+        header {
+            border-bottom: 0.5px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            background-color: rgba(13, 15, 26, 0.7);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-family: 'Sora', sans-serif;
+            font-size: 21px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .logo-text-o {
+            color: var(--accent-blue);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .content-top {
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(79, 142, 247, 0.1);
+            border: 0.5px solid rgba(79, 142, 247, 0.2);
+            border-radius: 20px;
+            padding: 5px 16px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin: 20px 0;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: 16px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Benefits Box */
+        .benefits-box {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-top: 32px;
+            text-align: left;
+        }
+
+        .benefits-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .benefit-item {
+            font-size: 13px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .benefit-check {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* Form */
+        .form-section {
+            margin-top: 32px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        label.optional {
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            background-color: var(--bg-tertiary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        textarea::placeholder {
+            color: rgba(240, 242, 255, 0.3);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(79, 142, 247, 0.1);
+            background-color: var(--bg-primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #3d75d8;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .form-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        /* Success State */
+        .success-state {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-state.show {
+            display: block;
+        }
+
+        .form-section.hide {
+            display: none;
+        }
+
+        .checkmark-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+        }
+
+        .checkmark {
+            width: 100%;
+            height: 100%;
+        }
+
+        .checkmark-circle {
+            stroke: var(--success);
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark-check {
+            stroke: var(--success);
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.4s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .success-heading {
+            font-family: 'Sora', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 20px 0;
+            color: var(--text-primary);
+        }
+
+        .success-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .share-box {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .share-box-text {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .share-btn {
+            background-color: transparent;
+            border: 0.5px solid var(--border-color);
+            color: var(--accent-blue);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            border-color: var(--accent-blue);
+            background-color: rgba(79, 142, 247, 0.1);
+        }
+
+        /* Social Proof Strip */
+        .social-proof {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            border-top: 0.5px solid var(--border-color);
+            margin-top: 48px;
+            padding-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .proof-item {
+            text-align: center;
+        }
+
+        .proof-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            display: block;
+        }
+
+        .proof-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Founder Note */
+        .founder-note {
+            background-color: var(--bg-secondary);
+            border: 0.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .founder-avatar {
+            width: 36px;
+            height: 36px;
+            background-color: var(--bg-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Sora', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            flex-shrink: 0;
+        }
+
+        .founder-text {
+            text-align: left;
+        }
+
+        .founder-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .founder-quote {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.65;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 0.5px solid var(--border-color);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-left {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .footer-center {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            width: 100%;
+            font-size: 11px;
+            color: rgba(240, 242, 255, 0.2);
+            text-align: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 0.5px solid var(--border-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            h1 {
+                font-size: 32px;
+                letter-spacing: -0.5px;
+            }
+
+            .container {
+                padding: 60px 20px;
+            }
+
+            .founder-note {
+                padding: 16px 20px;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .footer-right {
+                justify-content: center;
+            }
+
+            .social-proof {
+                gap: 16px;
+            }
+
+            .proof-number {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 26px;
+                letter-spacing: -0.5px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 40px 16px;
+            }
+
+            .benefits-box {
+                padding: 16px 20px;
+            }
+
+            .form-group {
+                gap: 6px;
+            }
+
+            label {
+                font-size: 13px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .success-heading {
+                font-size: 20px;
+            }
+
+            .social-proof {
+                flex-direction: column;
+                gap: 24px;
+                padding-top: 24px;
+            }
+
+            .proof-number {
+                font-size: 16px;
+            }
+
+            .founder-note {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .founder-text {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb-bottom"></div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="8"></circle>
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M16.5 16.5L20 20"></path>
+                </svg>
+                <span>Sk<span class="logo-text-o">o</span>pe</span>
+            </a>
+            <div class="nav-right">
+                <a href="index.html" class="nav-link">← Back to home</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content-top">
+                <div class="badge">🔭 Early Access Open</div>
+                <h1>Be the first to<br>find your scope.</h1>
+                <p class="subtitle">
+                    Skope is launching soon. We're onboarding the first batch of students before public launch. Drop your details and we'll send you your access link the moment it's ready.
+                </p>
+            </div>
+
+            <div class="benefits-box">
+                <div class="benefits-title">What you get as an early member:</div>
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>Free lifetime access to PathReport</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>Priority access before public launch</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>Direct feedback line to the founder</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>Your name in Skope's founding members list</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="form-section" id="formSection">
+                <form id="waitlistForm" name="waitlist">
+                    <div class="form-group">
+                        <label for="name">Your name</label>
+                        <input type="text" id="name" name="name" placeholder="What should we call you?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your email</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stream">What stream are you in?</label>
+                        <input type="text" id="stream" name="stream" placeholder="e.g. PCM, Commerce, Arts..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confusion" class="optional">One thing you're confused about right now (optional)</label>
+                        <textarea id="confusion" name="confusion" placeholder="e.g. I don't know if I should do engineering or design..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn" id="submitBtn">Secure My Early Access →</button>
+                    <p class="form-note">🔒 No spam. Just your access link.</p>
+                </form>
+            </div>
+
+            <!-- Success State -->
+            <div class="success-state" id="successState">
+                <div class="checkmark-container">
+                    <svg class="checkmark" viewBox="0 0 52 52">
+                        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" stroke-width="2"></circle>
+                        <polyline class="checkmark-check" points="13.3,28 21.7,35.4 38.2,18" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                    </svg>
+                </div>
+
+                <h2 class="success-heading">You're in. 🎉</h2>
+                <p class="success-text">We'll send your access link to <span id="displayEmail"></span> before public launch. Keep an eye on your inbox.</p>
+
+                <div class="share-box">
+                    <div class="share-box-text">Know someone who needs this?</div>
+                    <button class="share-btn" id="shareBtn">Share Skope</button>
+                    <div id="shareMessage" style="font-size: 12px; color: var(--success); margin-top: 8px; display: none;">Link copied!</div>
+                </div>
+            </div>
+
+            <!-- Social Proof Strip -->
+            <div class="social-proof">
+                <div class="proof-item">
+                    <span class="proof-number">800+</span>
+                    <span class="proof-label">Colleges in database</span>
+                </div>
+                <div class="proof-item">
+                    <span class="proof-number">Free</span>
+                    <span class="proof-label">For all students</span>
+                </div>
+                <div class="proof-item">
+                    <span class="proof-number">4 min</span>
+                    <span class="proof-label">To get your PathReport</span>
+                </div>
+            </div>
+
+            <!-- Founder Note -->
+            <div class="founder-note">
+                <div class="founder-avatar">AT</div>
+                <div class="founder-text">
+                    <div class="founder-name">Anurag, Founder of Skope</div>
+                    <div class="founder-quote">
+                        I chose the wrong college because nobody gave me real guidance. I built Skope so that doesn't keep happening to students like you.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-left">
+            <a href="index.html" style="text-decoration: none; color: var(--text-primary);">Skope</a>
+        </div>
+        <div class="footer-center">
+            Built for students who don't know what's next.
+        </div>
+        <div class="footer-right">
+            <a href="#" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">About</a>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Skope
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+    <script>
+        // Waitlist Data Management
+        class WaitlistManager {
+            constructor() {
+                this.storageKey = 'skope_waitlist_data';
+            }
+
+            // Get all waitlist entries
+            getAll() {
+                const data = localStorage.getItem(this.storageKey);
+                return data ? JSON.parse(data) : [];
+            }
+
+            // Add new entry
+            add(formData) {
+                const entries = this.getAll();
+                const entry = {
+                    id: Date.now(),
+                    name: formData.name,
+                    email: formData.email,
+                    stream: formData.stream,
+                    confusion: formData.confusion,
+                    timestamp: new Date().toISOString(),
+                    joinedDate: new Date().toLocaleDateString('en-IN')
+                };
+                entries.push(entry);
+                localStorage.setItem(this.storageKey, JSON.stringify(entries));
+                return entry;
+            }
+
+            // Export to Excel
+            exportToExcel() {
+                const entries = this.getAll();
+                if (entries.length === 0) {
+                    alert('No waitlist data to export');
+                    return;
+                }
+
+                // Prepare data for Excel
+                const worksheetData = [
+                    ['Name', 'Email', 'Stream', 'Confusion', 'Joined Date', 'Timestamp'],
+                    ...entries.map(entry => [
+                        entry.name,
+                        entry.email,
+                        entry.stream,
+                        entry.confusion || '',
+                        entry.joinedDate,
+                        entry.timestamp
+                    ])
+                ];
+
+                const workbook = XLSX.utils.book_new();
+                const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+
+                // Set column widths
+                worksheet['!cols'] = [
+                    { wch: 20 },
+                    { wch: 25 },
+                    { wch: 15 },
+                    { wch: 30 },
+                    { wch: 15 },
+                    { wch: 25 }
+                ];
+
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Waitlist');
+                XLSX.writeFile(workbook, `Skope-Waitlist-${new Date().toISOString().split('T')[0]}.xlsx`);
+            }
+
+            // Import from Excel
+            importFromExcel(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                        const rows = XLSX.utils.sheet_to_json(worksheet);
+
+                        const entries = this.getAll();
+                        rows.forEach(row => {
+                            const entry = {
+                                id: Date.now() + Math.random(),
+                                name: row['Name'] || row['name'] || '',
+                                email: row['Email'] || row['email'] || '',
+                                stream: row['Stream'] || row['stream'] || '',
+                                confusion: row['Confusion'] || row['confusion'] || '',
+                                timestamp: row['Timestamp'] || row['timestamp'] || new Date().toISOString(),
+                                joinedDate: row['Joined Date'] || row['joinedDate'] || new Date().toLocaleDateString('en-IN')
+                            };
+                            if (entry.email) {
+                                entries.push(entry);
+                            }
+                        });
+
+                        localStorage.setItem(this.storageKey, JSON.stringify(entries));
+                        alert(`Imported ${rows.length} entries successfully!`);
+                    } catch (error) {
+                        alert('Error importing file: ' + error.message);
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        }
+
+        const waitlistManager = new WaitlistManager();
+
+        // Form handling
+        const form = document.getElementById('waitlistForm');
+        const formSection = document.getElementById('formSection');
+        const successState = document.getElementById('successState');
+        const submitBtn = document.getElementById('submitBtn');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const streamInput = document.getElementById('stream');
+        const confusionInput = document.getElementById('confusion');
+        const displayEmailSpan = document.getElementById('displayEmail');
+        const shareBtn = document.getElementById('shareBtn');
+        const shareMessage = document.getElementById('shareMessage');
+
+        // Form validation
+        function validateForm() {
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const stream = streamInput.value.trim();
+
+            if (!name) {
+                alert('Please enter your name');
+                return false;
+            }
+
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email');
+                return false;
+            }
+
+            if (!stream) {
+                alert('Please tell us your stream');
+                return false;
+            }
+
+            return true;
+        }
+
+        // Form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!validateForm()) {
+                return;
+            }
+
+            // Show loading state
+            submitBtn.classList.add('btn-loading');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Simulate form submission (1.5 seconds)
+            setTimeout(() => {
+                // Store the data in localStorage
+                const formData = {
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    stream: streamInput.value,
+                    confusion: confusionInput.value
+                };
+
+                waitlistManager.add(formData);
+
+                // Hide form and show success
+                formSection.classList.add('hide');
+                
+                // Display the email in success message
+                displayEmailSpan.textContent = emailInput.value;
+                
+                successState.classList.add('show', 'fade-in');
+
+                console.log('Waitlist entry saved. Total entries:', waitlistManager.getAll().length);
+            }, 1500);
+        });
+
+        // Share button functionality
+        shareBtn.addEventListener('click', () => {
+            const shareText = 'I just joined the Skope waitlist — an AI that helps find your perfect career and college. Check it out: ' + window.location.href;
+
+            if (navigator.share) {
+                // Use Web Share API if available
+                navigator.share({
+                    title: 'Skope - Find Your Scope in Life',
+                    text: shareText,
+                    url: window.location.href
+                }).catch(err => console.log('Share failed:', err));
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(shareText).then(() => {
+                    shareMessage.style.display = 'block';
+                    setTimeout(() => {
+                        shareMessage.style.display = 'none';
+                    }, 2000);
+                });
+            }
+        });
+
+        // Input focus effects (floating label effect)
+        const inputs = document.querySelectorAll('input[type="text"], input[type="email"], textarea');
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.opacity = '1';
+            });
+
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.style.opacity = '0.9';
+                }
+            });
+        });
+
+        // Smooth scroll to form if coming from index.html
+        if (window.location.hash === '#form') {
+            document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
